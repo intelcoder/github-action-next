@@ -1,0 +1,13 @@
+name: github action demo
+on: [push]
+
+jobs:
+  demo-push:
+    runs-on: ubuntu-latest
+    steps:
+      - runs: echo "${{ github.ref }}"
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: yarn lint
+
