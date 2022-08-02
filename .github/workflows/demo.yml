@@ -21,4 +21,8 @@ jobs:
 
       - name: lint
         run: yarn lint
-    
+  echo-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo out
+        run: echo "$GITHUB_REF"
