@@ -4,8 +4,8 @@ on: [push]
 jobs:
   demo-push:
     runs-on: ubuntu-latest
-    steps:
-      - runs: echo "${{ github.ref }}"
+    # steps:
+    #   - runs: echo "${{ github.ref }}"
 
     steps:
       - name: install dependency
