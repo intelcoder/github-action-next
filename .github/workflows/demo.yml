@@ -8,19 +8,28 @@ jobs:
       - name: Check out git repo
         uses: actions/checkout@v3
 
-      - name: Echo test
-        run: echo "${{ github.ref }}"
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+            - name: Echo test
+              run: echo "${{ github.ref }}"
 
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-        
-      - name: install dependency
-        run: yarn
+
+      - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install
 
       - name: lint
         run: yarn lint
+
   echo-job:
     runs-on: ubuntu-latest
     steps:
